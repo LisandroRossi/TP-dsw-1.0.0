@@ -13,9 +13,9 @@ const db = mysql.createConnection({
     database: "sanatorio"
 } );
 
-app.get("/profesionales", (req,res) =>{
+app.get("/pacientes", (req,res) =>{
 
-    db.query('SELECT * FROM  profesionales',
+    db.query('SELECT * FROM  pacientes',
         (err, result) => {
             if (err){
                 console.log(err)
@@ -30,13 +30,17 @@ app.get("/profesionales", (req,res) =>{
 
 app.post("/create", (req,res) =>{
     const nombre = req.body.nombre;
-    const apellido = req.body.apellido
-    db.query('INSERT INTO profesionales(nombre, apellido) VALUES(?, ?)', [nombre, apellido],
+    const apellido = req.body.apellido;
+    const dni= req.body.dni;
+    const email= req.body.email;
+    const telefono= req.body.telefono;
+
+    db.query('INSERT INTO pacientes(nombre, apellido, dni, email, telefono) VALUES(?, ?, ?, ?, ?)', [nombre, apellido, dni, email, telefono],
         (err, result) => {
             if (err){
                 console.log(err)
             }else{
-                res.send("Profesional registrado con éxito!")
+                res.send("Paciente registrado con éxito!")
             }
         }
     );
